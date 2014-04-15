@@ -59,9 +59,9 @@ function kmeans(im::Image, k::Int; max_itr = Inf, tol = 1e-3)
             assignments[i] = assign(data[:,i],centers)
         end
 
-        differences = Array(Float64,size(centers)[2])
+        differences = Array(Float64,size(centers,2))
         # now recalculate the centers
-        for i = 1:size(centers)[2]
+        for i = 1:size(centers,2)
             newcenter = center(assignments,data,i)
             differences[i] = distance(centers[:,i],newcenter)
             centers[:,i] = newcenter
