@@ -1,0 +1,10 @@
+This is all of the code I wrote for UChicago's CMSC25400, a class on
+machine learning.
+
+I am putting this out there manily in the interest of showing what
+it's like to implement algorithms in Julia under a tight
+deadline. PLEASE do not use any of this code for anything
+important. It is definitely slow and probably incorrect in many
+places.  If you want to do machine learning or similar in Julia, take
+a look at some of the excellent packages in the JuliaStats
+organization (www.github.com/JuliaStats).
