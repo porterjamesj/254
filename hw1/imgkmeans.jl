@@ -33,6 +33,28 @@ function center(assignments,data,i)
     return sum / length(inds)
 end
 
+function center!(buf,assignments,data,i)
+    # sanity check
+    @assert length(assignments) == size(data,2) * size(data,3)
+
+    # zero out buffer
+    for j in 1:length(buf)
+        buf[j] = 0.0
+    end
+
+    # get indices of all points in the cluster i
+    inds = find(x->x==i,assignments)
+    for j in inds
+        for k in 1:length(buf)
+            buf[k] += data[k,j]
+        end
+    end
+
+    for k in 1:length(buf)
+        buf[k] = buf[k] / length(inds)
+    end
+end
+
 # cluster the given image
 function kmeans(im::Image, k::Int; max_itr = Inf, tol = 1e-3)
     data = im.data
@@ -60,11 +82,12 @@ function kmeans(im::Image, k::Int; max_itr = Inf, tol = 1e-3)
         end
 
         differences = Array(Float64,size(centers,2))
+        nextcenter = zeros(length(data[:,1]))
         # now recalculate the centers
         for i = 1:size(centers,2)
-            newcenter = center(assignments,data,i)
-            differences[i] = distance(centers[:,i],newcenter)
-            centers[:,i] = newcenter
+            center!(nextcenter,assignments,data,i)
+            differences[i] = distance(centers[:,i],nextcenter)
+            centers[:,i] = nextcenter
         end
 
         if !bool(findfirst(x->x>tol,differences))
