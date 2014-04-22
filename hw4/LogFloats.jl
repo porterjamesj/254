@@ -1,6 +1,6 @@
 module LogFloats
 
-export logfloat, LogFloat, difference
+export logfloat, LogFloat
 
 immutable LogFloat <: FloatingPoint
     n::Float64
