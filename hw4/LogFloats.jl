@@ -24,12 +24,6 @@ function Base.show(io::IO,lf::LogFloat)
     print(io, "e^$n")
 end
 
-function Base.showcompact(io::IO,lf::LogFloat)
-    n = lf.n
-    print(io, "e^$n")
-end
-
-
 function (*)(lf1::LogFloat,lf2::LogFloat)
     return LogFloat(lf1.n + lf2.n)
 end
